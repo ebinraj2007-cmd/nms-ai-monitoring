@@ -1,0 +1,1 @@
+[2026-07-02 16:21:09] Self-healing triggered: no temp files to clear (demo folder empty).
