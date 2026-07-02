@@ -1,0 +1,12 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]
+
+  # Later: your agents (installed on endpoints) will show up here
+  # - job_name: "agents"
+  #   static_configs:
+  #     - targets: ["AGENT_IP:9100"]
