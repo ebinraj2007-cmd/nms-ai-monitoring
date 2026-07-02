@@ -5,6 +5,9 @@ scrape_configs:
   - job_name: "prometheus"
     static_configs:
       - targets: ["localhost:9090"]
+  - job_name: "my_mac_agent"
+    static_configs:
+      - targets: ["host.docker.internal:9100"]
 
   # Later: your agents (installed on endpoints) will show up here
   # - job_name: "agents"
