@@ -1,4 +1,5 @@
 ![Build Status](https://github.com/ebinraj2007-cmd/nms-ai-monitoring/actions/workflows/build-installer.yml/badge.svg)
+### 📥 [Download the Windows Installer](https://github.com/ebinraj2007-cmd/nms-ai-monitoring/releases/latest)
 # NMS AI Monitoring
 
 AI-powered network monitoring platform (SME/MSP focused).
@@ -23,4 +24,4 @@ AI-powered network monitoring platform (SME/MSP focused).
 - [x] Agent (reports metrics from endpoints)
 - [x] AI prediction engine
 - [x] Self-healing automation
-- [ ] Windows installer
+- [x] Windows installer
