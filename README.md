@@ -1,3 +1,4 @@
+![Build Status](https://github.com/ebinraj2007-cmd/nms-ai-monitoring/actions/workflows/build-installer.yml/badge.svg)
 # NMS AI Monitoring
 
 AI-powered network monitoring platform (SME/MSP focused).
