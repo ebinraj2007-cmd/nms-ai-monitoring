@@ -19,7 +19,7 @@ AI-powered network monitoring platform (SME/MSP focused).
 
 ## Roadmap
 - [x] Central server (Prometheus + Grafana + Alertmanager)
-- [ ] Agent (reports metrics from endpoints)
-- [ ] AI prediction engine
-- [ ] Self-healing automation
+- [x] Agent (reports metrics from endpoints)
+- [x] AI prediction engine
+- [x] Self-healing automation
 - [ ] Windows installer
