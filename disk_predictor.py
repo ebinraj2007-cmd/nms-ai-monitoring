@@ -13,7 +13,9 @@ import requests
 import numpy as np
 from datetime import datetime, timedelta
 
-PROMETHEUS_URL = "http://localhost:9090"
+import os
+PROMETHEUS_URL = os.environ.get("NMS_PROMETHEUS_URL", "http://localhost:9090")
+HTTP_TIMEOUT = float(os.environ.get("NMS_HTTP_TIMEOUT", "10"))
 
 def get_disk_usage_history():
     """Fetch disk usage % over the last 6 hours from Prometheus."""
@@ -31,8 +33,13 @@ def get_disk_usage_history():
         "step": "60s",  # one data point per minute
     }
 
-    response = requests.get(f"{PROMETHEUS_URL}/api/v1/query_range", params=params)
-    data = response.json()
+    try:
+        response = requests.get(f"{PROMETHEUS_URL}/api/v1/query_range", params=params, timeout=HTTP_TIMEOUT)
+        response.raise_for_status()
+        data = response.json()
+    except (requests.RequestException, ValueError) as e:
+        print(f"Could not reach Prometheus at {PROMETHEUS_URL}: {e}")
+        return None
 
     if data["status"] != "success" or not data["data"]["result"]:
         print("⚠️  No disk data found. Is Prometheus running and scraping your agent?")

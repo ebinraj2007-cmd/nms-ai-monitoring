@@ -3,7 +3,9 @@ import os
 import glob
 from datetime import datetime
 
-PROMETHEUS_URL = "http://localhost:9090"
+import os
+PROMETHEUS_URL = os.environ.get("NMS_PROMETHEUS_URL", "http://localhost:9090")
+HTTP_TIMEOUT = float(os.environ.get("NMS_HTTP_TIMEOUT", "10"))
 CRITICAL_CPU_THRESHOLD = 80
 LOG_FILE = "self_heal_log.txt"
 DEMO_TEMP_FOLDER = "demo_temp_files"
@@ -11,8 +13,13 @@ DEMO_TEMP_FOLDER = "demo_temp_files"
 
 def get_current_cpu_usage():
     query = '100 - (avg(rate(node_cpu_seconds_total{mode="idle"}[1m])) * 100)'
-    response = requests.get(f"{PROMETHEUS_URL}/api/v1/query", params={"query": query})
-    data = response.json()
+    try:
+        response = requests.get(f"{PROMETHEUS_URL}/api/v1/query", params={"query": query}, timeout=HTTP_TIMEOUT)
+        response.raise_for_status()
+        data = response.json()
+    except (requests.RequestException, ValueError) as e:
+        print(f"Could not reach Prometheus at {PROMETHEUS_URL}: {e}")
+        return None
 
     if data["status"] != "success" or not data["data"]["result"]:
         print("Could not get CPU data. Is Prometheus running?")

@@ -1,0 +1,8 @@
+.env
+__pycache__/
+*.pyc
+*.log
+self_heal_log.txt
+alert_cron.log
+.DS_Store
+demo_temp_files/
